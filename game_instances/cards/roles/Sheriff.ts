@@ -1,0 +1,5 @@
+export class Sheriff {
+    constructor (
+        
+    ) {}
+}
