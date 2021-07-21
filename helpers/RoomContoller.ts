@@ -8,10 +8,13 @@ export function createRoom(password: string):Number {
 }
 
 function createId(): number {
-    let gameId: number
 
+    // Server ports imitation
+    let gameId: number = Math.trunc(Math.random() * 100000)
+
+    // Searching for free port
     while (gameId in allRooms) {
-        gameId = Math.trunc(Math.random() * 100000) / 100000
+        gameId = Math.trunc(Math.random() * 100000)
     }
     
     return gameId
