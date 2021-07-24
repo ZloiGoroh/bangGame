@@ -1,5 +1,5 @@
 import { makeResponse } from "./helpers/ResponseMaker";
-import { createRoom } from "./helpers/RoomContoller";
+import { createRoom, addPlayer } from "./helpers/RoomContoller";
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,9 +12,21 @@ app.get('/', (req, res) => {
     res.send(makeResponse({msg: 'Some hello text'}))
 })
 
-app.post('/createRoom', (req, res) => {
-    
-    res.send(makeResponse({roomId: createRoom(req.body.password)}))
+app.post('/createRoom', (req, res) => {   
+    res.send(makeResponse({roomId: createRoom(req.body.password, req.body.name)}))
+})
+
+
+/*
+Connect to the existed game
+    body: {
+        gameId : number - game identificator
+        passowrd: string - password of the room
+        name: string - username of the player
+    }
+*/
+app.post('/connectToGame', (req, res) => {
+    res.send(addPlayer(req.body.password, req.body.name, req.body.gameId))
 })
 
 app.get('/startGame', (req, res) => {
