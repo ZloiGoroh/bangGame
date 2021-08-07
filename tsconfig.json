@@ -1,4 +1,9 @@
 {
     "skipLibCheck": true,
-    
+    "compilerOptions": {
+        "target": "es5"
+    },
+    "exclude": [
+        "node_modules",
+    ]
 }

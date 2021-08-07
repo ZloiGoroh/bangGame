@@ -1,11 +1,11 @@
 import { makeResponse } from "./helpers/ResponseMaker";
 import { createRoom, addPlayer } from "./helpers/RoomContoller";
+import express = require('express');
+import bodyParser = require('body-parser');
 
-const express = require('express');
-const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 8000;
-
 const app = express();
+
 app.use(bodyParser());
 
 app.get('/', (req, res) => {

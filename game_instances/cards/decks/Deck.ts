@@ -1,18 +1,18 @@
 import { shuffle } from "../../../helpers/UtilFunctions";
 
-export abstract class Deck {
+export abstract class Deck<T> {
     constructor(
-        private cards: any[],
-        private discardPile: any[] = []   
+        private cards: T[],
+        private discardPile: T[] = []   
     ) {
         this.cards = shuffle(cards)
     }
 
-    public drawCard(): any {
+    public drawCard(): T {
         return this.cards.pop()
     }
 
-    public discard(thrownCard: any) {
+    public discard(thrownCard: T) {
         this.discardPile.push(thrownCard)
     }
 }

@@ -6,7 +6,7 @@ import { Sheriff } from "../roles/Sheriff";
 import { Deck } from "./Deck";
 
 
-export class RoleDeck<T extends Role> extends Deck {
+export class RoleDeck extends Deck<Role> {
     constructor(players: number) {
         let allRoles = [new Sheriff(), new Renegate(), new Bandit(), new Bandit(), new Assistant(), new Bandit(), new Assistant()]
         super(allRoles.splice(0, players))
