@@ -43,6 +43,10 @@ export function addPlayer(password: string, playerName: string, gameId: number) 
     }
 }
 
+export function startGame(gameId: number) {
+
+}
+
 function createId(): number {
 
     // Server ports imitation
@@ -54,4 +58,12 @@ function createId(): number {
     }
     
     return gameId
+}
+
+function gameExist(gameId: number, password: string) {
+    if (gameId in allRooms) {
+
+    } else {
+        return createError('room.exist')
+    }
 }

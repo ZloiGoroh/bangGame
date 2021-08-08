@@ -13,7 +13,12 @@ app.get('/', (req, res) => {
 })
 
 app.post('/createRoom', (req, res) => {   
-    res.send(makeResponse({roomId: createRoom(req.body.password, req.body.name)}))
+    let roomId = createRoom(req.body.password, req.body.name)
+    res.send(makeResponse({roomId }))
+    addPlayer(req.body.password, 'aaa', roomId)
+    addPlayer(req.body.password, 'bbb', roomId)
+    addPlayer(req.body.password, 'ccc', roomId)
+    addPlayer(req.body.password, 'ddd', roomId)
 })
 
 
@@ -30,7 +35,7 @@ app.post('/connectToGame', (req, res) => {
 })
 
 app.get('/startGame', (req, res) => {
-
+    res.send()
 })
 
 app.listen(PORT, () => {
