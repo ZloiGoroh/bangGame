@@ -1,5 +1,5 @@
 import { makeResponse } from "./helpers/ResponseMaker";
-import { createRoom, addPlayer } from "./helpers/RoomContoller";
+import { createRoom, addPlayer, startGame } from "./helpers/RoomContoller";
 import express = require('express');
 import bodyParser = require('body-parser');
 
@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 app.post('/createRoom', (req, res) => {   
     let roomId = createRoom(req.body.password, req.body.name)
-    res.send(makeResponse({roomId }))
+    res.send(makeResponse({roomId}))
     addPlayer(req.body.password, 'aaa', roomId)
     addPlayer(req.body.password, 'bbb', roomId)
     addPlayer(req.body.password, 'ccc', roomId)
@@ -35,7 +35,7 @@ app.post('/connectToGame', (req, res) => {
 })
 
 app.get('/startGame', (req, res) => {
-    res.send()
+    res.send(startGame(req.body.gameId, req.body.password))
 })
 
 app.listen(PORT, () => {

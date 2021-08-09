@@ -2,7 +2,8 @@ export type languages = 'en' | 'ru'
 
 export type errorTypes = 
     'room.exist' |
-    'player.password' |
+    'room.password' |
+    'room.players.count' |
     'player.exist'
 
 type errors = {
@@ -16,9 +17,13 @@ export const errors: errors = Object.freeze({
         en: 'This room does not exist',
         ru: 'Этой комнаты не существует'
     },
-    ['player.password']: {
+    ['room.password']: {
         en: 'You inputed wrong password',
         ru: 'Вы ввели не верный пароль'
+    },
+    ['room.players.count']: {
+        en: 'Not enough players',
+        ru: 'Недостаточно игроков'
     },
     ['player.exist']: {
         en: 'This name has been chosen',

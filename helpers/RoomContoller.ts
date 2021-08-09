@@ -1,7 +1,7 @@
 import { Game } from '../game_instances/Game'
 import { Player } from '../game_instances/Player'
 import {CircleTable} from '../helpers/CircleTable'
-import { createError } from './ResponseMaker'
+import { createError, makeResponse } from './ResponseMaker'
 
 export const allRooms: {
     [key: number] : Game
@@ -20,6 +20,10 @@ export function createRoom(password: string, playerName: string):number {
 
 export function addPlayer(password: string, playerName: string, gameId: number) {
 
+    let chosenRoom = gameExist(gameId, password)
+
+    if (typeof chosenRoom == 'string') return chosenRoom
+/*
     // Checking if room does exist
     if (!(gameId in allRooms)) {
         return createError('room.exist')
@@ -29,9 +33,9 @@ export function addPlayer(password: string, playerName: string, gameId: number) 
 
     // Checking for password
     if (chosenRoom.password !== password) {
-        return createError('player.password')
+        return createError('room.password')
     }
-
+*/
     // Checking if we have a player with such name
     if (chosenRoom.players.getPlayer(playerName)) {
         return createError('player.exist')
@@ -43,7 +47,16 @@ export function addPlayer(password: string, playerName: string, gameId: number) 
     }
 }
 
-export function startGame(gameId: number) {
+export function startGame(gameId: number, password: string) {
+
+    let chosenRoom = gameExist(gameId, password)
+    if (typeof chosenRoom == 'string') return chosenRoom
+
+    chosenRoom.startGame().then(res => {
+        return makeResponse({message: 'Game sucessfully created'})
+    }).catch(err => {
+        return createError(err.errorType)
+    })
 
 }
 
@@ -60,9 +73,15 @@ function createId(): number {
     return gameId
 }
 
-function gameExist(gameId: number, password: string) {
+// If everything is correct, it returns a game entity
+// otherwise an error JSON string
+function gameExist(gameId: number, password: string): Game | string {
     if (gameId in allRooms) {
-
+        let currentRoom = allRooms[gameId]
+        if (currentRoom.password == password) {
+            return currentRoom
+        }
+        return createError('room.password')
     } else {
         return createError('room.exist')
     }
