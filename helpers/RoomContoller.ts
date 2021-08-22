@@ -23,19 +23,6 @@ export function addPlayer(password: string, playerName: string, gameId: number) 
     let chosenRoom = gameExist(gameId, password)
 
     if (typeof chosenRoom == 'string') return chosenRoom
-/*
-    // Checking if room does exist
-    if (!(gameId in allRooms)) {
-        return createError('room.exist')
-    }
-
-    let chosenRoom = allRooms[gameId]
-
-    // Checking for password
-    if (chosenRoom.password !== password) {
-        return createError('room.password')
-    }
-*/
     // Checking if we have a player with such name
     if (chosenRoom.players.getPlayer(playerName)) {
         return createError('player.exist')
@@ -47,16 +34,19 @@ export function addPlayer(password: string, playerName: string, gameId: number) 
     }
 }
 
-export function startGame(gameId: number, password: string) {
+export async function startGame(gameId: number, password: string):Promise<string> {
 
     let chosenRoom = gameExist(gameId, password)
     if (typeof chosenRoom == 'string') return chosenRoom
 
-    chosenRoom.startGame().then(res => {
-        return makeResponse({message: 'Game sucessfully created'})
-    }).catch(err => {
-        return createError(err.errorType)
-    })
+    let response: string
+    try {
+        const roomCreationResult = await chosenRoom.startGame()
+        response = makeResponse(roomCreationResult)
+    } catch (err) {
+        response = createError(err.errorType)
+    }
+    return response
 
 }
 

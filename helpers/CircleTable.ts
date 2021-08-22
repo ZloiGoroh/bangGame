@@ -1,9 +1,10 @@
 import { Hero } from "../game_instances/cards/hero_cards/Hero"
 import { Role } from "../game_instances/cards/roles/AbstractRole"
 import { Player } from "../game_instances/Player"
+import { AbstractGameCard } from "../game_instances/cards/game_cards/AbstractGameCard";
 
 
-export class CircleTable<Rl extends Role, Hr extends Hero, T extends Player<Hr, Rl>> {
+export class CircleTable<Rl extends Role, Hr extends Hero, Crd extends AbstractGameCard, T extends Player<Hr, Rl, Crd>> {
     constructor(
         public elements: Array<T> = []
     ) {}

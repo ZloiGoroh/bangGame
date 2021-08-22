@@ -1,6 +1,6 @@
 import { Hero } from "../Hero";
 
-export class Tuco extends Hero {
+export default class Tuco extends Hero {
     constructor() {
         super(4, 'Tuco')
     }

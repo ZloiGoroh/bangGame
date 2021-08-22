@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 export function shuffle(array:Array<any>): Array<any> {
     let currentIndex = array.length,  randomIndex;
   
@@ -23,4 +25,17 @@ export function deepFreeze(obj: Object): Object {
     });
   
     return Object.freeze(obj);
+}
+
+// add path to the directory from root of the project
+export function readDirectory(directory: string):Promise<any> {
+    return new Promise((resolve, reject) => {
+        fs.readdir(__dirname + '/../' + directory, (err, files) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(files)
+            }
+        })
+    }) 
 }

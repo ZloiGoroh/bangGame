@@ -34,7 +34,7 @@ app.post('/connectToGame', (req, res) => {
     res.send(addPlayer(req.body.password, req.body.name, req.body.gameId))
 })
 
-app.get('/startGame', (req, res) => {
+app.post('/startGame', (req, res) => {
     res.send(startGame(req.body.gameId, req.body.password))
 })
 

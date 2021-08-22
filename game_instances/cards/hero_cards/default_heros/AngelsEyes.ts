@@ -1,6 +1,6 @@
 import { Hero } from "../Hero";
 
-export class AngelsEyes extends Hero {
+export default class AngelsEyes extends Hero {
     constructor() {
         super(4, 'AngelsEyes')
     }
